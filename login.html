@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Pabrik Neshi</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  font-family:Arial,sans-serif;
+  background:radial-gradient(circle at top,#29204d,#080b16 65%);
+  color:white;
+}
+.card{
+  width:100%;
+  max-width:420px;
+  padding:35px;
+  background:#121728;
+  border:1px solid #34304e;
+  border-radius:18px;
+  box-shadow:0 20px 60px #0008;
+}
+.logo{text-align:center;font-size:23px;font-weight:bold}
+.logo span{color:#9b7bff}
+.tag{
+  text-align:center;
+  color:#49d5e8;
+  letter-spacing:3px;
+  font-size:10px;
+  margin-top:10px;
+}
+h1{text-align:center;font-size:27px;margin-top:30px}
+.desc{text-align:center;color:#a5aec3;font-size:13px;line-height:1.6}
+label{display:block;margin:22px 0 9px;font-size:13px}
+input{
+  width:100%;
+  padding:14px;
+  background:#080b16;
+  border:1px solid #343c58;
+  border-radius:9px;
+  color:white;
+  outline:none;
+}
+input:focus{border-color:#9b7bff}
+.forgot{
+  display:block;
+  text-align:right;
+  color:#49d5e8;
+  font-size:12px;
+  margin-top:12px;
+  text-decoration:none;
+}
+button{
+  width:100%;
+  margin-top:24px;
+  padding:15px;
+  border:0;
+  border-radius:9px;
+  background:#9b7bff;
+  color:white;
+  font-weight:bold;
+  font-size:14px;
+}
+.register{
+  text-align:center;
+  color:#a5aec3;
+  font-size:13px;
+  margin-top:25px;
+}
+a{color:#49d5e8;text-decoration:none}
+.home{
+  display:block;
+  text-align:center;
+  margin-top:20px;
+  color:#a5aec3;
+  font-size:12px;
+}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">PABRIK <span>NESHI</span></div>
+  <div class="tag">GAME SERVICE</div>
+
+  <h1>Selamat Datang</h1>
+  <p class="desc">Silakan login untuk mengakses akun Pabrik Neshi.</p>
+
+  <form onsubmit="event.preventDefault();alert('Login belum aktif. Sistem keamanan dan database akan dipasang pada tahap berikutnya.');">
+    <label>Email</label>
+    <input type="email" placeholder="Masukkan email" required>
+
+    <label>Password</label>
+    <input type="password" placeholder="Masukkan password" required>
+
+    <a class="forgot" href="forgot-password.html">Lupa password?</a>
+
+    <button type="submit">LOGIN</button>
+  </form>
+
+  <p class="register">
+    Belum punya akun? <a href="register.html">Daftar</a>
+  </p>
+
+  <a class="home" href="index.html">← Kembali ke Home</a>
+</div>
+</body>
+</html>
