@@ -1,2 +1,2 @@
 # PabrikNeshi-Web
-Android Interactive Game Map Application
+Online Game Joki Service & Order Tracking Platform
