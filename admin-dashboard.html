@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - Pabrik Neshi</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080b16;color:white;font-family:Arial,sans-serif}
+header{padding:18px 6%;display:flex;justify-content:space-between;align-items:center;background:#121728;border-bottom:1px solid #252d45}
+.logo{font-size:19px;font-weight:bold}
+.logo span{color:#9b7bff}
+header a{color:#49d5e8;text-decoration:none;font-size:13px}
+.container{max-width:1150px;margin:auto;padding:30px 20px}
+.eyebrow{font-size:11px;letter-spacing:2px;color:#49d5e8}
+h1{font-size:28px;margin:10px 0}
+.muted{color:#a5aec3;font-size:13px;line-height:1.7}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:28px 0}
+.card,.panel{background:#121728;border:1px solid #252d45;border-radius:12px;padding:20px}
+.card small{color:#a5aec3}
+.card h2{font-size:27px;color:#9b7bff;margin:12px 0 0}
+.panel{margin-top:22px}
+.panel h2{font-size:18px;margin-top:0}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:650px;font-size:12px}
+th,td{text-align:left;padding:15px 12px;border-bottom:1px solid #252d45}
+th{color:#49d5e8;font-weight:600}
+td{color:#dce1ef}
+.status{padding:6px 9px;border-radius:20px;background:#9b7bff25;color:#b9a6ff;font-size:10px}
+.btn{display:inline-block;padding:10px 14px;background:#9b7bff;border:0;border-radius:7px;color:white;text-decoration:none;font-size:11px;font-weight:bold}
+.btn.secondary{background:#080b16;border:1px solid #343c58}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+label{display:block;color:#a5aec3;font-size:12px;margin-bottom:8px}
+input,select,textarea{width:100%;padding:12px;background:#080b16;border:1px solid #343c58;border-radius:8px;color:white;font:inherit}
+textarea{min-height:90px;resize:vertical}
+.field{margin-bottom:15px}
+.full{grid-column:1/-1}
+button{cursor:pointer}
+.notice{padding:13px;border-left:3px solid #49d5e8;background:#080b16;color:#a5aec3;font-size:12px;line-height:1.7;border-radius:5px}
+footer{text-align:center;padding:25px;color:#65718b;font-size:11px}
+@media(max-width:750px){.stats{grid-template-columns:repeat(2,1fr)}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}}
+@media(max-width:420px){.stats{grid-template-columns:1fr 1fr}.container{padding:22px 14px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">PABRIK <span>NESHI</span> <small style="color:#a5aec3;font-size:10px">ADMIN</small></div>
+  <a href="index.html">Keluar / Home</a>
+</header>
+
+<main class="container">
+  <p class="eyebrow">ADMIN CONTROL CENTER</p>
+  <h1>Dashboard Admin</h1>
+  <p class="muted">Kelola pesanan, harga, status, dan catatan pengerjaan customer.</p>
+
+  <section class="stats">
+    <div class="card"><small>Total Pesanan</small><h2>0</h2></div>
+    <div class="card"><small>Menunggu Konfirmasi</small><h2>0</h2></div>
+    <div class="card"><small>Sedang Dikerjakan</small><h2>0</h2></div>
+    <div class="card"><small>Selesai</small><h2>0</h2></div>
+  </section>
+
+  <section class="panel">
+    <h2>Daftar Pesanan</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID Pesanan</th>
+            <th>Customer</th>
+            <th>Layanan</th>
+            <th>Harga</th>
+            <th>Status</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="6" style="text-align:center;color:#a5aec3;padding:30px">
+              Belum ada pesanan. Pesanan customer akan muncul di sini setelah database terhubung.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Form Pembaruan Pesanan</h2>
+    <p class="muted">Rancangan form admin untuk memperbarui pengerjaan pesanan.</p>
+
+    <form onsubmit="event.preventDefault();alert('Form masih prototype. Perubahan belum disimpan ke database.');">
+      <div class="form-grid">
+        <div class="field">
+          <label>ID Pesanan</label>
+          <input type="text" placeholder="Contoh: PN-00001">
+        </div>
+        <div class="field">
+          <label>Harga Akhir (Rp)</label>
+          <input type="number" min="0" placeholder="Masukkan harga">
+        </div>
+        <div class="field">
+          <label>Status Pengerjaan</label>
+          <select>
+            <option>Menunggu konfirmasi</option>
+            <option>Menunggu pembayaran</option>
+            <option>Menunggu akun</option>
+            <option>Sedang dikerjakan</option>
+            <option>Ada kendala</option>
+            <option>Selesai</option>
+            <option>Dibatalkan</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Catatan untuk Customer</label>
+          <textarea placeholder="Tulis perkembangan pengerjaan..."></textarea>
+        </div>
+        <div class="field full">
+          <button class="btn" type="submit">Simpan Pembaruan</button>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h2>Informasi Admin</h2>
+    <div class="notice">
+      Dashboard ini masih berupa prototype tampilan. Akses admin, penyimpanan data, dan hak mengubah pesanan harus diamankan melalui backend. Customer tidak boleh bisa memperoleh akses admin hanya dengan membuka halaman ini.
+    </div>
+  </section>
+</main>
+
+<footer>© 2026 Pabrik Neshi — Admin Panel</footer>
+</body>
+</html>
