@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b16">
+  <title>Pabrik Neshi - Game Service</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #080b16;
+      color: white;
+    }
+    header {
+      padding: 20px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #252d45;
+    }
+    .logo { font-size: 20px; font-weight: bold; }
+    .logo span { color: #9b7bff; }
+    nav a {
+      color: #a5aec3;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 14px;
+    }
+    .hero {
+      max-width: 1100px;
+      margin: auto;
+      padding: 100px 25px;
+    }
+    .tag { color: #49d5e8; letter-spacing: 3px; font-size: 12px; }
+    h1 { font-size: clamp(38px, 7vw, 65px); line-height: 1.1; }
+    h1 span { color: #9b7bff; }
+    p { color: #a5aec3; line-height: 1.8; }
+    .btn {
+      display: inline-block;
+      background: #9b7bff;
+      color: white;
+      padding: 14px 22px;
+      border-radius: 9px;
+      text-decoration: none;
+      margin: 10px 8px 0 0;
+      font-weight: bold;
+    }
+    .btn.secondary {
+      background: #121728;
+      border: 1px solid #343c58;
+    }
+    .services {
+      padding: 65px 7%;
+      background: #0d1221;
+    }
+    .services h2 { font-size: 32px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 30px;
+    }
+    .card {
+      background: #121728;
+      border: 1px solid #252d45;
+      border-radius: 14px;
+      padding: 25px;
+    }
+    .card h3 { color: #9b7bff; }
+    footer {
+      padding: 25px;
+      text-align: center;
+      color: #a5aec3;
+      font-size: 12px;
+    }
+    @media(max-width:650px) {
+      header { padding: 18px; }
+      nav a { margin-left: 9px; font-size: 12px; }
+      .grid { grid-template-columns: 1fr; }
+      .hero { padding: 75px 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">PABRIK <span>NESHI</span></div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#services">Layanan</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="tag">ANIIMO GAME SERVICE</div>
+    <h1>Progress game-mu,<br><span>serahkan pada kami.</span></h1>
+    <p>
+      Layanan joki Aniimo dengan proses pengerjaan yang transparan.
+      Pantau status pesanan, lihat catatan admin, dan komunikasikan
+      kebutuhanmu dalam satu tempat.
+    </p>
+    <a class="btn" href="#services">Lihat Layanan</a>
+    <a class="btn secondary" href="register.html">Daftar Akun</a>
+  </section>
+
+  <section class="services" id="services">
+    <h2>Layanan Aniimo</h2>
+    <p>Pilih layanan yang kamu butuhkan.</p>
+    <div class="grid">
+      <div class="card"><h3>Quest</h3><p>Bantuan menyelesaikan quest pilihanmu.</p></div>
+      <div class="card"><h3>Daily</h3><p>Layanan harian, mingguan, dan bulanan.</p></div>
+      <div class="card"><h3>Heist Egg</h3><p>Bantuan untuk kebutuhan Heist Egg.</p></div>
+      <div class="card"><h3>Build Team</h3><p>Bantuan membangun tim Aniimo.</p></div>
+      <div class="card"><h3>RV Home Level</h3><p>Bantuan meningkatkan level RV Home.</p></div>
+      <div class="card"><h3>Lumin</h3><p>Layanan khusus kebutuhan Lumin.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Pabrik Neshi. All rights reserved.
+  </footer>
+</body>
+  </html>
+  
