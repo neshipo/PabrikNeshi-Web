@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Dashboard - Pabrik Neshi</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080b16;color:white;font-family:Arial,sans-serif}
+header{padding:18px 6%;display:flex;justify-content:space-between;align-items:center;background:#121728;border-bottom:1px solid #252d45}
+.logo{font-size:19px;font-weight:bold}
+.logo span{color:#9b7bff}
+header a{color:#49d5e8;text-decoration:none;font-size:13px}
+.container{max-width:1100px;margin:auto;padding:35px 22px}
+.welcome h1{font-size:27px;margin-bottom:8px}
+.muted{color:#a5aec3;font-size:13px;line-height:1.7}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:28px 0}
+.stat,.panel{background:#121728;border:1px solid #252d45;border-radius:13px;padding:22px}
+.stat small{color:#a5aec3}
+.stat h2{color:#9b7bff;font-size:28px;margin:12px 0 0}
+.section-title{font-size:19px;margin:35px 0 15px}
+.order{background:#121728;border:1px solid #34304e;border-radius:13px;padding:22px}
+.order-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.order-id{color:#49d5e8;font-size:12px}
+.status{background:#9b7bff25;color:#b9a6ff;padding:7px 11px;border-radius:20px;font-size:11px}
+.progress{height:7px;background:#303750;border-radius:10px;margin:20px 0 10px;overflow:hidden}
+.progress span{display:block;width:45%;height:100%;background:linear-gradient(90deg,#9b7bff,#49d5e8)}
+.detail{display:flex;justify-content:space-between;gap:12px;font-size:12px;margin-top:15px}
+.detail span{color:#a5aec3}
+.note{padding:15px;background:#080b16;border-left:3px solid #49d5e8;border-radius:7px;margin-top:20px}
+.note b{font-size:12px}
+.note p{font-size:12px;color:#a5aec3;line-height:1.6}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn{display:inline-block;padding:12px 17px;border-radius:8px;background:#9b7bff;color:white;text-decoration:none;font-size:12px;font-weight:bold}
+.btn.secondary{background:#080b16;border:1px solid #343c58}
+.empty{text-align:center;padding:35px 15px;color:#a5aec3;font-size:13px}
+footer{text-align:center;padding:25px;color:#65718b;font-size:11px}
+@media(max-width:600px){.stats{grid-template-columns:1fr}.detail{flex-direction:column}.container{padding:25px 16px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">PABRIK <span>NESHI</span></div>
+  <a href="index.html">Keluar / Home</a>
+</header>
+
+<main class="container">
+  <section class="welcome">
+    <p class="muted">CUSTOMER DASHBOARD</p>
+    <h1>Selamat datang, Customer!</h1>
+    <p class="muted">Pantau pesanan dan perkembangan pengerjaan joki Aniimo kamu.</p>
+  </section>
+
+  <section class="stats">
+    <div class="stat">
+      <small>Total Pesanan</small>
+      <h2>0</h2>
+    </div>
+    <div class="stat">
+      <small>Sedang Dikerjakan</small>
+      <h2>0</h2>
+    </div>
+    <div class="stat">
+      <small>Pesanan Selesai</small>
+      <h2>0</h2>
+    </div>
+  </section>
+
+  <h2 class="section-title">Pesanan Saya</h2>
+
+  <section class="order">
+    <div class="empty">
+      <h3>Belum Ada Pesanan</h3>
+      <p>Pesanan yang kamu buat nantinya akan muncul di halaman ini.</p>
+      <a class="btn" href="index.html#services">Pilih Layanan Aniimo</a>
+    </div>
+  </section>
+
+  <h2 class="section-title">Fitur Customer</h2>
+  <section class="panel">
+    <p>✦ Melihat status pengerjaan pesanan</p>
+    <p>✦ Membaca catatan terbaru dari admin</p>
+    <p>✦ Mengirim pesan kepada admin</p>
+    <p>✦ Melihat riwayat pesanan</p>
+    <p>✦ Mengubah nama profil</p>
+  </section>
+</main>
+
+<footer>© 2026 Pabrik Neshi</footer>
+</body>
+</html>
