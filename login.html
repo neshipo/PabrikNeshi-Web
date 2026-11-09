@@ -158,9 +158,9 @@ document.getElementById("googleLogin").addEventListener("click", async function(
   }
 });
 
-// Memeriksa status login setelah kembali dari Google
-window.auth.(async function(user) {
-  if (user) {
+// Memeriksa status login Firebase
+window.auth.onAuthStateChanged(async function(user) {
+  if (user && !window.location.pathname.endsWith("login.html")) {
     await openDashboard(user);
   }
 });
