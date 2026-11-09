@@ -8,80 +8,42 @@
 <style>
 *{box-sizing:border-box}
 body{
-  margin:0;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
-  font-family:Arial,sans-serif;
+  margin:0;min-height:100vh;display:flex;
+  justify-content:center;align-items:center;
+  padding:20px;font-family:Arial,sans-serif;
   background:radial-gradient(circle at top,#29204d,#080b16 65%);
   color:white;
 }
 .card{
-  width:100%;
-  max-width:420px;
-  padding:35px;
-  background:#121728;
-  border:1px solid #34304e;
-  border-radius:18px;
-  box-shadow:0 20px 60px #0008;
+  width:100%;max-width:420px;padding:35px;
+  background:#121728;border:1px solid #34304e;
+  border-radius:18px;box-shadow:0 20px 60px #0008;
 }
 .logo{text-align:center;font-size:23px;font-weight:bold}
 .logo span{color:#9b7bff}
-.tag{
-  text-align:center;
-  color:#49d5e8;
-  letter-spacing:3px;
-  font-size:10px;
-  margin-top:10px;
-}
+.tag{text-align:center;color:#49d5e8;letter-spacing:3px;font-size:10px;margin-top:10px}
 h1{text-align:center;font-size:27px;margin-top:30px}
 .desc{text-align:center;color:#a5aec3;font-size:13px;line-height:1.6}
 label{display:block;margin:22px 0 9px;font-size:13px}
 input{
-  width:100%;
-  padding:14px;
-  background:#080b16;
-  border:1px solid #343c58;
-  border-radius:9px;
-  color:white;
-  outline:none;
+  width:100%;padding:14px;background:#080b16;
+  border:1px solid #343c58;border-radius:9px;color:white;outline:none;
 }
 input:focus{border-color:#9b7bff}
 .forgot{
-  display:block;
-  text-align:right;
-  color:#49d5e8;
-  font-size:12px;
-  margin-top:12px;
-  text-decoration:none;
+  display:block;text-align:right;color:#49d5e8;
+  font-size:12px;margin-top:12px;text-decoration:none;
 }
 button{
-  width:100%;
-  margin-top:24px;
-  padding:15px;
-  border:0;
-  border-radius:9px;
-  background:#9b7bff;
-  color:white;
-  font-weight:bold;
-  font-size:14px;
+  width:100%;margin-top:20px;padding:15px;
+  border:0;border-radius:9px;background:#9b7bff;
+  color:white;font-weight:bold;font-size:14px;cursor:pointer;
 }
-.register{
-  text-align:center;
-  color:#a5aec3;
-  font-size:13px;
-  margin-top:25px;
-}
+.google{background:#fff;color:#222}
+.register{text-align:center;color:#a5aec3;font-size:13px;margin-top:25px}
 a{color:#49d5e8;text-decoration:none}
-.home{
-  display:block;
-  text-align:center;
-  margin-top:20px;
-  color:#a5aec3;
-  font-size:12px;
-}
+.home{display:block;text-align:center;margin-top:20px;color:#a5aec3;font-size:12px}
+#message{font-size:12px;text-align:center;color:#ff9b9b;margin-top:15px}
 </style>
 </head>
 <body>
@@ -92,24 +54,28 @@ a{color:#49d5e8;text-decoration:none}
   <h1>Selamat Datang</h1>
   <p class="desc">Silakan login untuk mengakses akun Pabrik Neshi.</p>
 
-  <form onsubmit="event.preventDefault();alert('Login belum aktif. Sistem keamanan dan database akan dipasang pada tahap berikutnya.');">
+  <form id="loginForm">
     <label>Email</label>
-    <input type="email" placeholder="Masukkan email" required>
+    <input type="email" id="email" placeholder="Masukkan email" required>
 
     <label>Password</label>
-    <input type="password" placeholder="Masukkan password" required>
+    <input type="password" id="password" placeholder="Masukkan password" required>
 
     <a class="forgot" href="forgot-password.html">Lupa password?</a>
-
-    <button type="submit">LOGIN</button>
+    <button type="submit" id="loginButton">LOGIN</button>
   </form>
+
+  <button type="button" class="google" id="googleLogin">
+    LOGIN DENGAN GOOGLE
+  </button>
+
+  <p id="message"></p>
 
   <p class="register">
     Belum punya akun? <a href="register.html">Daftar</a>
   </p>
 
   <a class="home" href="index.html">← Kembali ke Home</a>
-
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -120,9 +86,12 @@ a{color:#49d5e8;text-decoration:none}
 <script>
 const ADMIN_UID = "I7DZ2W2pBCZlkKbI9kDH60m3Rh53";
 
+const form = document.getElementById("loginForm");
+const message = document.getElementById("message");
+const loginButton = document.getElementById("loginButton");
+
 async function openDashboard(user) {
   try {
-    // Admin ditentukan berdasarkan UID, bukan pilihan pengguna.
     if (user.uid === ADMIN_UID) {
       window.location.href = "admin-dashboard.html";
       return;
@@ -142,13 +111,17 @@ async function openDashboard(user) {
 
     window.location.href = "customer-dashboard.html";
   } catch (error) {
-    alert("Gagal memuat profil: " + error.message);
+    message.textContent = "Gagal memuat profil: " + error.message;
   }
 }
 
 // Login Email dan Password
-document.getElementById("loginForm").addEventListener("submit", async function(event) {
+form.addEventListener("submit", async function(event) {
   event.preventDefault();
+
+  loginButton.disabled = true;
+  loginButton.textContent = "MEMPROSES...";
+  message.textContent = "";
 
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
@@ -157,7 +130,10 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     const result = await window.auth.signInWithEmailAndPassword(email, password);
     await openDashboard(result.user);
   } catch (error) {
-    alert("Login gagal: " + error.message);
+    message.textContent = "Login gagal: " + error.message;
+  } finally {
+    loginButton.disabled = false;
+    loginButton.textContent = "LOGIN";
   }
 });
 
@@ -168,11 +144,11 @@ document.getElementById("googleLogin").addEventListener("click", async function(
   try {
     await window.auth.signInWithRedirect(provider);
   } catch (error) {
-    alert("Google Login gagal: " + error.message);
+    message.textContent = "Google Login gagal: " + error.message;
   }
 });
 
-// Memproses hasil login Google setelah kembali dari Google
+// Hasil login Google
 window.auth.getRedirectResult()
   .then(async function(result) {
     if (result.user) {
@@ -180,10 +156,8 @@ window.auth.getRedirectResult()
     }
   })
   .catch(function(error) {
-    alert("Google Login gagal: " + error.message);
+    message.textContent = "Google Login gagal: " + error.message;
   });
 </script>
-
 </body>
 </html>
-
