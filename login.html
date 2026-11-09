@@ -137,15 +137,24 @@ form.addEventListener("submit", async function(event) {
   }
 });
 
-// Login Google menggunakan Popup
+// Login Google dengan pemeriksaan proses
 document.getElementById("googleLogin").addEventListener("click", async function() {
   const provider = new firebase.auth.GoogleAuthProvider();
 
+  message.textContent = "Menghubungkan ke Google...";
+
   try {
     const result = await window.auth.signInWithPopup(provider);
+
+    message.textContent =
+      "Google berhasil: " + result.user.email +
+      ". Sedang membuka Dashboard...";
+
     await openDashboard(result.user);
+
   } catch (error) {
-    message.textContent = "Google Login gagal: " + error.code + " - " + error.message;
+    message.textContent =
+      "Error: " + error.code + " - " + error.message;
   }
 });
 
