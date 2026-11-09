@@ -109,6 +109,81 @@ a{color:#49d5e8;text-decoration:none}
   </p>
 
   <a class="home" href="index.html">← Kembali ke Home</a>
+
 </div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+
+<script>
+const ADMIN_UID = "I7DZ2W2pBCZlkKbI9kDH60m3Rh53";
+
+async function openDashboard(user) {
+  try {
+    // Admin ditentukan berdasarkan UID, bukan pilihan pengguna.
+    if (user.uid === ADMIN_UID) {
+      window.location.href = "admin-dashboard.html";
+      return;
+    }
+
+    const userRef = window.db.collection("users").doc(user.uid);
+    const userDoc = await userRef.get();
+
+    if (!userDoc.exists) {
+      await userRef.set({
+        name: user.displayName || user.email.split("@")[0],
+        email: user.email,
+        role: "customer",
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+
+    window.location.href = "customer-dashboard.html";
+  } catch (error) {
+    alert("Gagal memuat profil: " + error.message);
+  }
+}
+
+// Login Email dan Password
+document.getElementById("loginForm").addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  try {
+    const result = await window.auth.signInWithEmailAndPassword(email, password);
+    await openDashboard(result.user);
+  } catch (error) {
+    alert("Login gagal: " + error.message);
+  }
+});
+
+// Login Google
+document.getElementById("googleLogin").addEventListener("click", async function() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  try {
+    await window.auth.signInWithRedirect(provider);
+  } catch (error) {
+    alert("Google Login gagal: " + error.message);
+  }
+});
+
+// Memproses hasil login Google setelah kembali dari Google
+window.auth.getRedirectResult()
+  .then(async function(result) {
+    if (result.user) {
+      await openDashboard(result.user);
+    }
+  })
+  .catch(function(error) {
+    alert("Google Login gagal: " + error.message);
+  });
+</script>
+
 </body>
 </html>
+
