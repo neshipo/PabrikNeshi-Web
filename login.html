@@ -11,7 +11,7 @@ body{
   margin:0;min-height:100vh;display:flex;
   justify-content:center;align-items:center;
   padding:20px;font-family:Arial,sans-serif;
-p  background:radial-gradient(circle at top,#29204d,#080b16 65%);
+  background:radial-gradient(circle at top,#29204d,#080b16 65%);
   color:white;
 }
 .card{
@@ -137,19 +137,20 @@ form.addEventListener("submit", async function(event) {
   }
 });
 
-// Login Google
+// Login Google menggunakan Popup
 document.getElementById("googleLogin").addEventListener("click", async function() {
   const provider = new firebase.auth.GoogleAuthProvider();
 
   try {
-    await window.auth.signInWithRedirect(provider);
+    const result = await window.auth.signInWithPopup(provider);
+    await openDashboard(result.user);
   } catch (error) {
-    message.textContent = "Google Login gagal: " + error.message;
+    message.textContent = "Google Login gagal: " + error.code + " - " + error.message;
   }
 });
 
 // Memeriksa status login setelah kembali dari Google
-window.auth.onAuthStateChanged(async function(user) {
+window.auth.(async function(user) {
   if (user) {
     await openDashboard(user);
   }
