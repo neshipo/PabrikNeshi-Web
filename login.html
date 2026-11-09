@@ -11,7 +11,7 @@ body{
   margin:0;min-height:100vh;display:flex;
   justify-content:center;align-items:center;
   padding:20px;font-family:Arial,sans-serif;
-  background:radial-gradient(circle at top,#29204d,#080b16 65%);
+p  background:radial-gradient(circle at top,#29204d,#080b16 65%);
   color:white;
 }
 .card{
@@ -148,16 +148,12 @@ document.getElementById("googleLogin").addEventListener("click", async function(
   }
 });
 
-// Hasil login Google
-window.auth.getRedirectResult()
-  .then(async function(result) {
-    if (result.user) {
-      await openDashboard(result.user);
-    }
-  })
-  .catch(function(error) {
-    message.textContent = "Google Login gagal: " + error.message;
-  });
+// Memeriksa status login setelah kembali dari Google
+window.auth.onAuthStateChanged(async function(user) {
+  if (user) {
+    await openDashboard(user);
+  }
+});
 </script>
 </body>
 </html>
