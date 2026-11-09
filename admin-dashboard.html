@@ -11,126 +11,324 @@ body{margin:0;background:#080b16;color:white;font-family:Arial,sans-serif}
 header{padding:18px 6%;display:flex;justify-content:space-between;align-items:center;background:#121728;border-bottom:1px solid #252d45}
 .logo{font-size:19px;font-weight:bold}
 .logo span{color:#9b7bff}
-header a{color:#49d5e8;text-decoration:none;font-size:13px}
-.container{max-width:1150px;margin:auto;padding:30px 20px}
-.eyebrow{font-size:11px;letter-spacing:2px;color:#49d5e8}
-h1{font-size:28px;margin:10px 0}
-.muted{color:#a5aec3;font-size:13px;line-height:1.7}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:28px 0}
-.card,.panel{background:#121728;border:1px solid #252d45;border-radius:12px;padding:20px}
+.container{max-width:1100px;margin:auto;padding:30px 20px}
+.muted{color:#a5aec3;font-size:13px;line-height:1.6}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:25px 0}
+.card,.panel,.order{background:#121728;border:1px solid #252d45;border-radius:13px;padding:20px}
 .card small{color:#a5aec3}
-.card h2{font-size:27px;color:#9b7bff;margin:12px 0 0}
-.panel{margin-top:22px}
-.panel h2{font-size:18px;margin-top:0}
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:650px;font-size:12px}
-th,td{text-align:left;padding:15px 12px;border-bottom:1px solid #252d45}
-th{color:#49d5e8;font-weight:600}
-td{color:#dce1ef}
-.status{padding:6px 9px;border-radius:20px;background:#9b7bff25;color:#b9a6ff;font-size:10px}
-.btn{display:inline-block;padding:10px 14px;background:#9b7bff;border:0;border-radius:7px;color:white;text-decoration:none;font-size:11px;font-weight:bold}
-.btn.secondary{background:#080b16;border:1px solid #343c58}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-label{display:block;color:#a5aec3;font-size:12px;margin-bottom:8px}
-input,select,textarea{width:100%;padding:12px;background:#080b16;border:1px solid #343c58;border-radius:8px;color:white;font:inherit}
-textarea{min-height:90px;resize:vertical}
-.field{margin-bottom:15px}
-.full{grid-column:1/-1}
-button{cursor:pointer}
-.notice{padding:13px;border-left:3px solid #49d5e8;background:#080b16;color:#a5aec3;font-size:12px;line-height:1.7;border-radius:5px}
+.card h2{color:#9b7bff;font-size:27px}
+.title{font-size:19px;margin:32px 0 15px}
+input,select,textarea{width:100%;padding:12px;margin:7px 0 15px;background:#080b16;color:white;border:1px solid #343c58;border-radius:8px}
+textarea{min-height:75px;resize:vertical}
+label{font-size:12px;color:#a5aec3}
+button{cursor:pointer;border:0;border-radius:8px;padding:11px 15px;background:#9b7bff;color:white;font-weight:bold}
+button.secondary{background:#080b16;border:1px solid #343c58}
+button.green{background:#167d68}
+button.red{background:#9e4054}
+.order{margin-bottom:15px}
+.order-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.order-id{color:#49d5e8;font-size:12px}
+.order p{font-size:13px;color:#a5aec3;line-height:1.6;overflow-wrap:anywhere}
+.status{background:#9b7bff25;color:#b9a6ff;padding:7px 11px;border-radius:20px;font-size:11px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.actions button{font-size:11px}
+hr{border:0;border-top:1px solid #252d45;margin:17px 0}
+#message{font-size:13px;color:#49d5e8;line-height:1.6}
+.empty{text-align:center;padding:30px;color:#a5aec3}
 footer{text-align:center;padding:25px;color:#65718b;font-size:11px}
-@media(max-width:750px){.stats{grid-template-columns:repeat(2,1fr)}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}}
-@media(max-width:420px){.stats{grid-template-columns:1fr 1fr}.container{padding:22px 14px}}
+@media(max-width:600px){.stats{grid-template-columns:1fr}.container{padding:22px 15px}}
 </style>
 </head>
 <body>
+
 <header>
-  <div class="logo">PABRIK <span>NESHI</span> <small style="color:#a5aec3;font-size:10px">ADMIN</small></div>
-  <a href="index.html">Keluar / Home</a>
+  <div class="logo">PABRIK <span>NESHI</span> ADMIN</div>
+  <button class="secondary" id="logoutBtn">Keluar</button>
 </header>
 
 <main class="container">
-  <p class="eyebrow">ADMIN CONTROL CENTER</p>
-  <h1>Dashboard Admin</h1>
-  <p class="muted">Kelola pesanan, harga, status, dan catatan pengerjaan customer.</p>
 
-  <section class="stats">
-    <div class="card"><small>Total Pesanan</small><h2>0</h2></div>
-    <div class="card"><small>Menunggu Konfirmasi</small><h2>0</h2></div>
-    <div class="card"><small>Sedang Dikerjakan</small><h2>0</h2></div>
-    <div class="card"><small>Selesai</small><h2>0</h2></div>
-  </section>
+<h1>Dashboard Admin</h1>
+<p class="muted">Kelola pesanan pelanggan Pabrik Neshi.</p>
 
-  <section class="panel">
-    <h2>Daftar Pesanan</h2>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>ID Pesanan</th>
-            <th>Customer</th>
-            <th>Layanan</th>
-            <th>Harga</th>
-            <th>Status</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td colspan="6" style="text-align:center;color:#a5aec3;padding:30px">
-              Belum ada pesanan. Pesanan customer akan muncul di sini setelah database terhubung.
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+<section class="stats">
+  <div class="card">
+    <small>Total Pesanan</small>
+    <h2 id="total">0</h2>
+  </div>
+  <div class="card">
+    <small>Menunggu / Diproses</small>
+    <h2 id="active">0</h2>
+  </div>
+  <div class="card">
+    <small>Selesai</small>
+    <h2 id="done">0</h2>
+  </div>
+</section>
 
-  <section class="panel">
-    <h2>Form Pembaruan Pesanan</h2>
-    <p class="muted">Rancangan form admin untuk memperbarui pengerjaan pesanan.</p>
+<h2 class="title">Buat Pesanan Baru</h2>
 
-    <form onsubmit="event.preventDefault();alert('Form masih prototype. Perubahan belum disimpan ke database.');">
-      <div class="form-grid">
-        <div class="field">
-          <label>ID Pesanan</label>
-          <input type="text" placeholder="Contoh: PN-00001">
-        </div>
-        <div class="field">
-          <label>Harga Akhir (Rp)</label>
-          <input type="number" min="0" placeholder="Masukkan harga">
-        </div>
-        <div class="field">
-          <label>Status Pengerjaan</label>
-          <select>
-            <option>Menunggu konfirmasi</option>
-            <option>Menunggu pembayaran</option>
-            <option>Menunggu akun</option>
-            <option>Sedang dikerjakan</option>
-            <option>Ada kendala</option>
-            <option>Selesai</option>
-            <option>Dibatalkan</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Catatan untuk Customer</label>
-          <textarea placeholder="Tulis perkembangan pengerjaan..."></textarea>
-        </div>
-        <div class="field full">
-          <button class="btn" type="submit">Simpan Pembaruan</button>
-        </div>
-      </div>
-    </form>
-  </section>
+<section class="panel">
+  <form id="orderForm">
 
-  <section class="panel">
-    <h2>Informasi Admin</h2>
-    <div class="notice">
-      Dashboard ini masih berupa prototype tampilan. Akses admin, penyimpanan data, dan hak mengubah pesanan harus diamankan melalui backend. Customer tidak boleh bisa memperoleh akses admin hanya dengan membuka halaman ini.
-    </div>
-  </section>
+    <label>UID Pelanggan</label>
+    <input id="customerId" placeholder="Masukkan UID pelanggan" required>
+
+    <label>Nama Akun Aniimo</label>
+    <input id="gameName" placeholder="Nama akun dalam game" required>
+
+    <label>Layanan</label>
+    <select id="service" required>
+      <option value="">Pilih layanan</option>
+      <option>Quest</option>
+      <option>Daily Harian</option>
+      <option>Daily Mingguan</option>
+      <option>Daily Bulanan</option>
+      <option>Heist Egg</option>
+      <option>Build Team</option>
+      <option>RV Home Level</option>
+      <option>Lumin</option>
+    </select>
+
+    <label>Harga (Rupiah)</label>
+    <input id="price" type="number" min="0" placeholder="Contoh: 50000" required>
+
+    <label>Permintaan Khusus</label>
+    <textarea id="request" placeholder="Permintaan pelanggan"></textarea>
+
+    <label>Catatan Admin</label>
+    <textarea id="adminNote" placeholder="Catatan untuk pelanggan"></textarea>
+
+    <button type="submit" id="createBtn">BUAT PESANAN</button>
+  </form>
+  <p id="message"></p>
+</section>
+
+<h2 class="title">Semua Pesanan</h2>
+<div id="ordersList">
+  <div class="order empty">Memuat pesanan...</div>
+</div>
+
 </main>
 
-<footer>© 2026 Pabrik Neshi — Admin Panel</footer>
+<footer>© 2026 Pabrik Neshi</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+
+<script>
+const ADMIN_UID = "I7DZ2W2pBCZlkKbI9kDH60m3Rh53";
+const auth = window.auth;
+const db = window.db;
+
+const message = document.getElementById("message");
+const ordersList = document.getElementById("ordersList");
+
+let unsubscribeOrders = null;
+
+function safe(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[c]);
+}
+
+function money(value) {
+  return "Rp " + Number(value || 0).toLocaleString("id-ID");
+}
+
+function showMessage(text, error = false) {
+  message.textContent = text;
+  message.style.color = error ? "#ff8d9d" : "#49d5e8";
+}
+
+function renderOrders(snapshot) {
+  const docs = snapshot.docs;
+
+  document.getElementById("total").textContent = docs.length;
+
+  const completed = docs.filter(doc =>
+    String(doc.data().status || "").toLowerCase() === "selesai"
+  ).length;
+
+  document.getElementById("done").textContent = completed;
+  document.getElementById("active").textContent =
+    docs.length - completed;
+
+  if (!docs.length) {
+    ordersList.innerHTML =
+      '<div class="order empty">Belum ada pesanan pelanggan.</div>';
+    return;
+  }
+
+  ordersList.innerHTML = docs.map(doc => {
+    const o = doc.data();
+
+    return `
+      <article class="order">
+        <div class="order-top">
+          <div>
+            <div class="order-id">ORDER #${safe(doc.id)}</div>
+            <h3>${safe(o.gameName || "Aniimo")}</h3>
+          </div>
+          <span class="status">${safe(o.status || "Menunggu")}</span>
+        </div>
+
+        <p><b>UID Customer:</b> ${safe(o.customerId)}</p>
+        <p><b>Layanan:</b> ${safe(
+          Array.isArray(o.services) ? o.services.join(", ") : (o.services || o.service || "-")
+        )}</p>
+        <p><b>Permintaan:</b> ${safe(o.request || "-")}</p>
+        <p><b>Harga:</b> ${money(o.price)}</p>
+
+        <hr>
+
+        <label>Status Pesanan</label>
+        <select id="status-${safe(doc.id)}">
+          <option value="Menunggu" ${o.status === "Menunggu" ? "selected" : ""}>Menunggu</option>
+          <option value="Diproses" ${o.status === "Diproses" ? "selected" : ""}>Diproses</option>
+          <option value="Selesai" ${o.status === "Selesai" ? "selected" : ""}>Selesai</option>
+          <option value="Dibatalkan" ${o.status === "Dibatalkan" ? "selected" : ""}>Dibatalkan</option>
+        </select>
+
+        <label>Harga (Rupiah)</label>
+        <input type="number" min="0" id="price-${safe(doc.id)}" value="${Number(o.price || 0)}">
+
+        <label>Catatan Admin</label>
+        <textarea id="note-${safe(doc.id)}">${safe(o.adminNote || "")}</textarea>
+
+        <div class="actions">
+          <button class="green" data-save="${safe(doc.id)}">SIMPAN PERUBAHAN</button>
+          <button class="red" data-delete="${safe(doc.id)}">HAPUS PESANAN</button>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+async function saveOrder(id) {
+  const status = document.getElementById("status-" + id).value;
+  const price = Number(document.getElementById("price-" + id).value);
+  const adminNote = document.getElementById("note-" + id).value;
+
+  if (!Number.isFinite(price) || price < 0) {
+    alert("Harga tidak valid.");
+    return;
+  }
+
+  try {
+    await db.collection("orders").doc(id).update({
+      status,
+      price,
+      adminNote,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    showMessage("Pesanan berhasil diperbarui.");
+  } catch (error) {
+    showMessage("Gagal memperbarui: " + error.message, true);
+  }
+}
+
+async function deleteOrder(id) {
+  if (!confirm("Yakin ingin menghapus pesanan ini?")) return;
+
+  try {
+    await db.collection("orders").doc(id).delete();
+    showMessage("Pesanan berhasil dihapus.");
+  } catch (error) {
+    showMessage("Gagal menghapus: " + error.message, true);
+  }
+}
+
+ordersList.addEventListener("click", event => {
+  const saveId = event.target.dataset.save;
+  const deleteId = event.target.dataset.delete;
+
+  if (saveId) saveOrder(saveId);
+  if (deleteId) deleteOrder(deleteId);
+});
+
+auth.onAuthStateChanged(async user => {
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  if (user.uid !== ADMIN_UID) {
+    alert("Akses khusus Admin.");
+    await auth.signOut();
+    window.location.href = "login.html";
+    return;
+  }
+
+  try {
+    // Ambil semua pesanan dan dengarkan perubahan langsung.
+    unsubscribeOrders = db.collection("orders")
+      .onSnapshot(renderOrders, error => {
+        showMessage("Gagal memuat pesanan: " + error.message, true);
+      });
+  } catch (error) {
+    showMessage(error.message, true);
+  }
+});
+
+document.getElementById("orderForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const user = auth.currentUser;
+  if (!user || user.uid !== ADMIN_UID) {
+    showMessage("Akses Admin tidak valid.", true);
+    return;
+  }
+
+  const customerId = document.getElementById("customerId").value.trim();
+  const gameName = document.getElementById("gameName").value.trim();
+  const service = document.getElementById("service").value;
+  const price = Number(document.getElementById("price").value);
+  const request = document.getElementById("request").value.trim();
+  const adminNote = document.getElementById("adminNote").value.trim();
+
+  if (!customerId || !gameName || !service ||
+      !Number.isFinite(price) || price < 0) {
+    showMessage("Periksa kembali data pesanan.", true);
+    return;
+  }
+
+  try {
+    await db.collection("orders").add({
+      customerId,
+      gameName,
+      service,
+      price,
+      request,
+      adminNote,
+      status: "Menunggu",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    document.getElementById("orderForm").reset();
+    showMessage("Pesanan berhasil dibuat!");
+  } catch (error) {
+    showMessage("Gagal membuat pesanan: " + error.message, true);
+  }
+});
+
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+  if (unsubscribeOrders) unsubscribeOrders();
+
+  try {
+    await auth.signOut();
+    window.location.href = "login.html";
+  } catch (error) {
+    alert("Gagal keluar: " + error.message);
+  }
+});
+</script>
 </body>
 </html>
