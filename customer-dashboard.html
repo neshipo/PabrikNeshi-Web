@@ -5,88 +5,234 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Customer Dashboard - Pabrik Neshi</title>
+
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#080b16;color:white;font-family:Arial,sans-serif}
 header{padding:18px 6%;display:flex;justify-content:space-between;align-items:center;background:#121728;border-bottom:1px solid #252d45}
 .logo{font-size:19px;font-weight:bold}
 .logo span{color:#9b7bff}
-header a{color:#49d5e8;text-decoration:none;font-size:13px}
+button{cursor:pointer;border:0}
 .container{max-width:1100px;margin:auto;padding:35px 22px}
 .welcome h1{font-size:27px;margin-bottom:8px}
 .muted{color:#a5aec3;font-size:13px;line-height:1.7}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:28px 0}
-.stat,.panel{background:#121728;border:1px solid #252d45;border-radius:13px;padding:22px}
+.stat,.panel,.order{background:#121728;border:1px solid #252d45;border-radius:13px;padding:22px}
 .stat small{color:#a5aec3}
 .stat h2{color:#9b7bff;font-size:28px;margin:12px 0 0}
 .section-title{font-size:19px;margin:35px 0 15px}
-.order{background:#121728;border:1px solid #34304e;border-radius:13px;padding:22px}
+.order{margin-bottom:15px;border-color:#34304e}
 .order-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .order-id{color:#49d5e8;font-size:12px}
 .status{background:#9b7bff25;color:#b9a6ff;padding:7px 11px;border-radius:20px;font-size:11px}
-.progress{height:7px;background:#303750;border-radius:10px;margin:20px 0 10px;overflow:hidden}
-.progress span{display:block;width:45%;height:100%;background:linear-gradient(90deg,#9b7bff,#49d5e8)}
-.detail{display:flex;justify-content:space-between;gap:12px;font-size:12px;margin-top:15px}
+.detail{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;margin-top:15px}
 .detail span{color:#a5aec3}
 .note{padding:15px;background:#080b16;border-left:3px solid #49d5e8;border-radius:7px;margin-top:20px}
 .note b{font-size:12px}
 .note p{font-size:12px;color:#a5aec3;line-height:1.6}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-.btn{display:inline-block;padding:12px 17px;border-radius:8px;background:#9b7bff;color:white;text-decoration:none;font-size:12px;font-weight:bold}
-.btn.secondary{background:#080b16;border:1px solid #343c58}
 .empty{text-align:center;padding:35px 15px;color:#a5aec3;font-size:13px}
+.btn{padding:12px 17px;border-radius:8px;background:#9b7bff;color:white;font-size:12px;font-weight:bold}
+.btn.secondary{background:#080b16;border:1px solid #343c58}
 footer{text-align:center;padding:25px;color:#65718b;font-size:11px}
-@media(max-width:600px){.stats{grid-template-columns:1fr}.detail{flex-direction:column}.container{padding:25px 16px}}
+.error{color:#ff8d9d}
+@media(max-width:600px){.stats{grid-template-columns:1fr}.container{padding:25px 16px}}
 </style>
 </head>
+
 <body>
 <header>
   <div class="logo">PABRIK <span>NESHI</span></div>
-  <a href="index.html">Keluar / Home</a>
+  <button class="btn secondary" id="logoutBtn">Keluar</button>
 </header>
 
 <main class="container">
   <section class="welcome">
     <p class="muted">CUSTOMER DASHBOARD</p>
-    <h1>Selamat datang, Customer!</h1>
+    <h1>Selamat datang, <span id="customerName">Customer</span>!</h1>
+    <p class="muted" id="customerEmail">Memuat akun...</p>
     <p class="muted">Pantau pesanan dan perkembangan pengerjaan joki Aniimo kamu.</p>
   </section>
 
   <section class="stats">
     <div class="stat">
       <small>Total Pesanan</small>
-      <h2>0</h2>
+      <h2 id="totalOrders">0</h2>
     </div>
     <div class="stat">
       <small>Sedang Dikerjakan</small>
-      <h2>0</h2>
+      <h2 id="activeOrders">0</h2>
     </div>
     <div class="stat">
       <small>Pesanan Selesai</small>
-      <h2>0</h2>
+      <h2 id="completedOrders">0</h2>
     </div>
   </section>
 
   <h2 class="section-title">Pesanan Saya</h2>
-
-  <section class="order">
-    <div class="empty">
-      <h3>Belum Ada Pesanan</h3>
-      <p>Pesanan yang kamu buat nantinya akan muncul di halaman ini.</p>
-      <a class="btn" href="index.html#services">Pilih Layanan Aniimo</a>
-    </div>
-  </section>
+  <div id="ordersList">
+    <div class="order empty">Memuat pesanan...</div>
+  </div>
 
   <h2 class="section-title">Fitur Customer</h2>
   <section class="panel">
     <p>✦ Melihat status pengerjaan pesanan</p>
     <p>✦ Membaca catatan terbaru dari admin</p>
-    <p>✦ Mengirim pesan kepada admin</p>
+    <p>✦ Mengirim pesan kepada admin (segera hadir)</p>
     <p>✦ Melihat riwayat pesanan</p>
-    <p>✦ Mengubah nama profil</p>
   </section>
 </main>
 
 <footer>© 2026 Pabrik Neshi</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+
+<script>
+const auth = window.auth;
+const db = window.db;
+
+const nameEl = document.getElementById("customerName");
+const emailEl = document.getElementById("customerEmail");
+const ordersEl = document.getElementById("ordersList");
+
+function safe(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[char]);
+}
+
+function dateText(timestamp) {
+  if (!timestamp) return "-";
+  const date = timestamp.toDate
+    ? timestamp.toDate()
+    : new Date(timestamp);
+
+  return isNaN(date.getTime())
+    ? "-"
+    : date.toLocaleDateString("id-ID");
+}
+
+function renderOrders(docs) {
+  const orders = docs.map(doc => ({
+    id: doc.id,
+    ...doc.data()
+  }));
+
+  orders.sort((a,b) => {
+    const ta = a.createdAt?.toMillis?.() || 0;
+    const tb = b.createdAt?.toMillis?.() || 0;
+    return tb - ta;
+  });
+
+  document.getElementById("totalOrders").textContent = orders.length;
+
+  const completed = orders.filter(o =>
+    String(o.status || "").toLowerCase() === "selesai"
+  ).length;
+
+  document.getElementById("completedOrders").textContent = completed;
+  document.getElementById("activeOrders").textContent =
+    orders.length - completed;
+
+  if (!orders.length) {
+    ordersEl.innerHTML = `
+      <div class="order empty">
+        <h3>Belum Ada Pesanan</h3>
+        <p>Pesanan kamu akan muncul di sini setelah Admin membuat pesanan.</p>
+      </div>`;
+    return;
+  }
+
+  ordersEl.innerHTML = orders.map(order => {
+    const services = Array.isArray(order.services)
+      ? order.services.join(", ")
+      : (order.services || order.service || "-");
+
+    return `
+      <article class="order">
+        <div class="order-top">
+          <div>
+            <div class="order-id">ORDER #${safe(order.id)}</div>
+            <h3>${safe(order.gameName || order.accountName || "Aniimo")}</h3>
+          </div>
+          <span class="status">${safe(order.status || "Menunggu")}</span>
+        </div>
+
+        <div class="detail">
+          <div>Layanan: <span>${safe(services)}</span></div>
+          <div>Tanggal: <span>${safe(dateText(order.createdAt))}</span></div>
+        </div>
+
+        <div class="detail">
+          <div>Harga: <span>${safe(
+            order.price != null
+              ? "Rp " + Number(order.price).toLocaleString("id-ID")
+              : "Menunggu konfirmasi"
+          )}</span></div>
+        </div>
+
+        <div class="note">
+          <b>Catatan Admin</b>
+          <p>${safe(order.adminNote || order.note || "Belum ada catatan dari Admin.")}</p>
+        </div>
+      </article>`;
+  }).join("");
+}
+
+auth.onAuthStateChanged(async user => {
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  nameEl.textContent = user.displayName || user.email.split("@")[0];
+  emailEl.textContent = user.email || "";
+
+  try {
+    const profile = await db.collection("users").doc(user.uid).get();
+
+    if (profile.exists && profile.data().name) {
+      nameEl.textContent = profile.data().name;
+    }
+
+    const snapshot = await db.collection("orders")
+      .where("customerId", "==", user.uid)
+      .get();
+
+    renderOrders(snapshot.docs);
+
+    // Dengarkan perubahan pesanan secara langsung
+    db.collection("orders")
+      .where("customerId", "==", user.uid)
+      .onSnapshot(snapshot => {
+        renderOrders(snapshot.docs);
+      }, error => {
+        ordersEl.innerHTML =
+          '<div class="order error">Gagal memperbarui pesanan: ' +
+          safe(error.message) + '</div>';
+      });
+
+  } catch (error) {
+    ordersEl.innerHTML =
+      '<div class="order error">Gagal memuat data: ' +
+      safe(error.message) + '</div>';
+  }
+});
+
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+  try {
+    await auth.signOut();
+    window.location.href = "login.html";
+  } catch (error) {
+    alert("Gagal keluar: " + error.message);
+  }
+});
+</script>
 </body>
 </html>
